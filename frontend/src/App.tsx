@@ -1,8 +1,24 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
+
+import { execHello } from "lib/api/hello"
 
 const App: React.FC = () => {
+  const [message, setMessage] = useState<string>("")
+
+  const handleExecHello = async () => {
+    const res = await execHello()
+
+    if (res.status === 200) {
+      setMessage(res.data.message)
+    }
+  }
+
+  useEffect(() => {
+    handleExecHello()
+  }, [])
+
   return (
-    <h1>Hello World!</h1>
+    <h1>{message}</h1>
   )
 }
 
