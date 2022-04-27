@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 9000
+    volumes:
+      - ./backend:/usr/src
+    environment:
+      - DATABASE_URL=postgres://blog:blog@db:5432/develop
+    ports:
+      - 9000:9000
+    depends_on:
+      - db
+
+  db:
+    build:
+      context: ./backend/db
+      dockerfile: Dockerfile
+    expose:
+      - 5332
+    environment:
+      - POSTGRES_USER=blog
+      - POSTGRES_PASSWORD=blog

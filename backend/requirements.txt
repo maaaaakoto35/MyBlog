@@ -1,0 +1,18 @@
+# packages
+# access postgresql
+asyncpg==0.25.0
+
+# slim framework
+fastapi==0.75.2
+
+# production http server
+gunicorn==20.1.0
+
+# http lib
+requests==2.27.1
+
+# orm inspired django
+tortoise-orm==0.19.0
+
+# http server
+uvicorn==0.17.6
