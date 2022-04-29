@@ -1,8 +1,7 @@
-from http.client import HTTPException
 import logging
 import os
 
-from fastapi import FastAPI, Path
+from fastapi import FastAPI, Path, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 
@@ -17,7 +16,7 @@ app = FastAPI()
 
 origins = [
     "*",
-    "localhost:3000"
+    "localhost:9000"
 ]
 
 app.add_middleware(
@@ -59,7 +58,7 @@ async def read_all_summaries() -> List[SummarySchema]:
 async def get_summary(id: int = Path(..., gt=0)) -> SummaryResponseSchema:
     summary = await crud.get(id)
     if not summary:
-        raise HTTPException(status_code=404, detail="Summary not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Summary not found")
     return summary
 
 
@@ -68,13 +67,13 @@ async def update_summary(payload: SummaryPayLoadSchema, id: int = Path(..., gt=0
     summary = await crud.put(id, payload)
 
     if not summary:
-        raise HTTPException(status_code=404, detail="Summary not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Summary not found")
     return summary
 
 @app.delete("/summay/{id}", response_model=SummaryResponseSchema)
 async def delete_summary(id: int = Path(..., gt=0)) -> SummaryResponseSchema:
     summary = await crud.get(id)
     if not summary:
-        raise HTTPException(status_code=404, detail="Summary not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Summary not found")
     await crud.delete(id)
     return summary

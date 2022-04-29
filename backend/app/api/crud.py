@@ -11,23 +11,23 @@ async def post(payload: SummaryPayLoadSchema) -> int:
     return summary.id
 
 async def get_all() -> List:
-    summariess = await TextSummary.all().values()
-    return summariess
+    summaries = await TextSummary.all().values()
+    return summaries
 
-async def get(id: int) -> Union[dict, None]:
-    summary = await TextSummary.filter(id=id).first().values()
+async def get(id: int) -> TextSummary:
+    summary = await TextSummary.filter(id=id).first()
     if summary:
-        return summary[0]
+        return summary
     return None
 
-async def put(id: int, payload: SummaryPayLoadSchema) -> Union[dict, None]:
+async def put(id: int, payload: SummaryPayLoadSchema) -> TextSummary:
     summary = await TextSummary.filter(id=id).update(
         summary=payload.summary
     )
 
     if summary:
-        update_summary = await TextSummary.filter(id=id).first().values()
-        return update_summary[0]
+        update_summary = await TextSummary.filter(id=id).first()
+        return update_summary
     return None
 
 async def delete(id: int) -> int:
