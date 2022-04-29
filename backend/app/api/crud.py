@@ -10,8 +10,8 @@ async def post(payload: SummaryPayLoadSchema) -> int:
     await summary.save()
     return summary.id
 
-async def get_all() -> List:
-    summaries = await TextSummary.all().values()
+async def get_all() -> List[TextSummary]:
+    summaries = await TextSummary.all()
     return summaries
 
 async def get(id: int) -> TextSummary:
