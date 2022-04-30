@@ -24,3 +24,16 @@ services:
     environment:
       - POSTGRES_USER=blog
       - POSTGRES_PASSWORD=blog
+
+  front:
+    stdin_open: true
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/
+      - /usr/src/app/node_modules
+    ports:
+      - 9001:3000
+    depends_on:
+      - web
