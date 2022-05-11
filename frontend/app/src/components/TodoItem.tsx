@@ -7,7 +7,7 @@ type Props = {
     handleDelete: (todo: Todo) => void
 }
 
-export const TaskItem: React.FC<Props> = ({ todo, handleDone, handleDelete }) => {
+export const TodoItem: React.FC<Props> = ({ todo, handleDone, handleDelete }) => {
     return (
         <li className={todo.done ? 'done' : ''}>
             <label>
