@@ -12,3 +12,6 @@ $ docker-compose exec web python app/db.py
 
 ### 9001 port
 - TypeScriptをReact.jsでやってます。
+
+### 仕様
+https://hackmd.io/@4rr5ixutSkSI6Dg_vBOqjA/H1tiHftU5
